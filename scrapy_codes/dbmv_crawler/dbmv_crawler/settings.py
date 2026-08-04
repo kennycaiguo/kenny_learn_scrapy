@@ -19,7 +19,7 @@ ADDONS = {}
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Concurrency and throttling settings
 #CONCURRENT_REQUESTS = 16
@@ -58,9 +58,11 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "dbmv_crawler.pipelines.DbmvCrawlerPipeline": 300,
-#}
+# 启用我们的DbmvCrawlerPipeline来实现保存文件
+ITEM_PIPELINES = {
+   "dbmv_crawler.pipelines.DbmvCrawlerPipeline": 300,
+   "dbmv_crawler.pipelines.MovieDbPipeline": 400,  # 数值小的会先执行
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

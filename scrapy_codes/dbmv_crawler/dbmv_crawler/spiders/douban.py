@@ -1,15 +1,22 @@
-from scrapy import Selector
 import scrapy
-
+from scrapy import Request, Selector
 from dbmv_crawler.items import MovieItem
-
+from scrapy.http import HtmlResponse
 
 class DoubanSpider(scrapy.Spider):
     name = "douban"
     allowed_domains = ["movie.douban.com"]
-    start_urls = ["https://movie.douban.com/top250"]
+   
+    async def start(self):
+        for page in range(10):
+            url = f'https://movie.douban.com/top250?start={page*25}'
+            yield Request(
+                url=url,
+                callback=self.parse
+            )
 
-    def parse(self, response):
+    def parse(self, response: HtmlResponse):
+        # print(response.url)
         sel = Selector(response)
         lis = sel.css('#content > div > div.article > ol > li')
 
@@ -22,3 +29,4 @@ class DoubanSpider(scrapy.Spider):
             movieitem['subject']= li.css('div.info > div.bd > p.quote > span::text').extract_first()
 
             yield movieitem
+
