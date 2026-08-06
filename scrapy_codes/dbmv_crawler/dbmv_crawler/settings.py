@@ -61,7 +61,8 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 # 启用我们的DbmvCrawlerPipeline来实现保存文件
 ITEM_PIPELINES = {
    "dbmv_crawler.pipelines.DbmvCrawlerPipeline": 300,
-   "dbmv_crawler.pipelines.MovieDbPipeline": 400,  # 数值小的会先执行
+   # "dbmv_crawler.pipelines.MovieDbPipeline": 400,  # 数值小的会先执行
+   "dbmv_crawler.pipelines.MovieDbBatchPipeline": 400,  # 批量保存数据到数据库的管线
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
