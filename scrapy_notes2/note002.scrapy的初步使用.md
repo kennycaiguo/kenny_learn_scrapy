@@ -115,3 +115,11 @@ class F4399crawlerSpider(scrapy.Spider):
 ## 注意，默认scrapy项目的管道pipeline是没有开启的，如果你需要存储数据，你可以在settings.py里面开启管道
 
 ![image-20260806175201884](./note002.scrapy的初步使用.assets/image-20260806175201884.png)
+
+# scrapy项目的使用流程
+
+![image-20260807114514723](./note002.scrapy的初步使用.assets/image-20260807114514723.png)
+
+![image-20260807114853545](./note002.scrapy的初步使用.assets/image-20260807114853545.png)
+
+![image-20260807115114396](./note002.scrapy的初步使用.assets/image-20260807115114396.png)
