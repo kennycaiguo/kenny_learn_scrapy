@@ -1,6 +1,7 @@
 import scrapy
 from ssq.items import SsqItem
 
+
 class SsqclawlerSpider(scrapy.Spider):
     name = "ssqclawler"
     allowed_domains = ["500.com"]

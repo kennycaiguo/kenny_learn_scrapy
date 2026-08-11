@@ -26,6 +26,17 @@ ROBOTSTXT_OBEY = True
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
 DOWNLOAD_DELAY = 1
 
+# MySQL数据库配置
+MYSQL = {
+   "host":'localhost',
+   "port":3306,
+   "user":'root',
+   "pwd":'root',
+   "db":'ssq' 
+}
+
+
+
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
 
@@ -60,9 +71,13 @@ DOWNLOAD_DELAY = 1
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "ssq.pipelines.SsqPipeline": 300,
+   # "ssq.pipelines.SsqMysqlPipeline": 200,
+   "ssq.pipelines.SsqMongoPipeline": 190,
 }
 
-LOG_LEVEL = 'WARNING' #配置日志级别，只有在警告级别以上的日志才显示
+
+
+# LOG_LEVEL = 'WARNING' #配置日志级别，只有在警告级别以上的日志才显示
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

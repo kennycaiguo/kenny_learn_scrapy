@@ -57,3 +57,73 @@
 ## 另外，我们可以在settings.py里面配置日志级别，过滤一些我们不需要的日志输出
 
 ![image-20260807154624657](./note03-scrapy管道.assets/image-20260807154624657.png)
+
+## 13.然后我们利用管道把数据存储到一个csv文件中（其实是可以不写的，直接使用scrapy crawl ssqclawler -o ssqdata2.csv即可，但是是excel文件的话需要写）
+
+![image-20260810155616818](./note03-scrapy管道.assets/image-20260810155616818.png)
+
+### 运行程序，是可以拿到数据的
+
+![image-20260810155855165](./note03-scrapy管道.assets/image-20260810155855165.png)
+
+## 14.不过，这样子效率不高，我们可以把代码优化一下，我们需要创建一个open_spider方法，在里面打开文件句柄并且掌握属性添加到self，然后在process_item方法里面不断写入数据，然后创建一个close_spider方法，在里面关闭我们的文件句柄
+
+![image-20260810162632261](./note03-scrapy管道.assets/image-20260810162632261.png)
+
+### 运行程序，也是可以拿到数据的
+
+## 15.我们可以不写另外一个pipeline，把手机写入MySQL数据库，我们在pipelines.py里面创建一个新类SsqMysqlPipeline，先写一些骨架代码
+
+![image-20260810170404210](./note03-scrapy管道.assets/image-20260810170404210.png)
+
+## 16.然后我们需要在settings.py里面启用这个管线
+
+![image-20260810170556589](./note03-scrapy管道.assets/image-20260810170556589.png)
+
+## 17.然后我们需要在数据库里面创建一个ssq数据库，然后创建一个ssq_res表格
+
+![image-20260810171524733](./note03-scrapy管道.assets/image-20260810171524733.png)
+
+## 18.回到pipelines.py,我们来完成保存数据到mysql的代码
+
+![image-20260810174916984](./note03-scrapy管道.assets/image-20260810174916984.png)
+
+### 运行程序，发现拿到数据了
+
+![image-20260810175013676](./note03-scrapy管道.assets/image-20260810175013676.png)
+
+## 19.上面的代码可以优化，我们把mysql数据库的信息添加到settings.py里面，这样子才比较合理
+
+![image-20260810183321876](./note03-scrapy管道.assets/image-20260810183321876.png)
+
+## 20.然后我们需要在pipelines.py里面当然这个设置，然后用它的key的值来填充connet函数
+
+![image-20260810183453917](./note03-scrapy管道.assets/image-20260810183453917.png)
+
+### 运行程序，也是可以拿到数据的
+
+![image-20260810183525800](./note03-scrapy管道.assets/image-20260810183525800.png)
+
+## 21.然后我们来学习把它保存到MongoDB，前提是先安装MongoDB数据库，然后安装MongoDB的python驱动： pip install pymongo，我以及安装好了
+
+![image-20260810183636920](./note03-scrapy管道.assets/image-20260810183636920.png)
+
+![image-20260810183708127](./note03-scrapy管道.assets/image-20260810183708127.png)
+
+### 需要注意：scrapy需要mongodb8.0以上的版本，如果低于它，会报错
+
+### 21.1 在pipelines.py里面新建一个类：SsqMongoPipeline，
+
+![image-20260810184214890](./note03-scrapy管道.assets/image-20260810184214890.png)
+
+### 然后我们在settings.py里面配置这个管线
+
+![image-20260810184255389](./note03-scrapy管道.assets/image-20260810184255389.png)
+
+### 21.2 然后我们来编写保存数据到MongoDB的代码
+
+![image-20260810194207443](./note03-scrapy管道.assets/image-20260810194207443.png)
+
+### 运行程序，拿到数据了
+
+![image-20260810194301312](./note03-scrapy管道.assets/image-20260810194301312.png)
